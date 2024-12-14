@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const imageRoute = require('./routes/image');
 const userRegister = require('./routes/userRegister');
+const userSchema = require('./model/User')
 const app = express();
 dotenv.config();
 const cors = require('cors');
@@ -17,9 +18,11 @@ app.use('/api/v1/user', userRegister);
 
 const port = process.env.PORT || 8082
 
-app.get('/',(req, res) => {
-    res.send('Hello, World!')
-})
+app.get('/all-users', async(req,res)=>{
+    await userSchema.find({})
+    .then(result=>res.json(result))
+    .catch(err=>res.json(err))
+  })
 
 
 // Connect to the MongoDB server
