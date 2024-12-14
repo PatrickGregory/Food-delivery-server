@@ -36,6 +36,11 @@ mongoose.connection.on('disconnected',()=>{
     console.log('MongoDB connection is disconnected');
 })
 
+// Add a route handler for the root URL
+app.get("/", (req, res) => {
+    res.send("Welcome to the backend server!");
+    });
+
 app.listen(port, ()=>{
     connect()
     console.log(`Server is running on port ${port}`)
